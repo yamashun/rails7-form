@@ -1,0 +1,38 @@
+---
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - bundle:/usr/local/bundle
+      - .:/var/apps/web
+    ports:
+      - 3000:3000
+    env_file:
+      - 'config/env_files/.env.local'
+    depends_on:
+      - mysql
+      - redis
+    tty: true
+    stdin_open: true
+
+  redis:
+    image: redis
+
+  mysql:
+    image: mysql:5.7
+    platform: linux/x86_64
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - 3306:3306
+
+volumes:
+  bundle:
+    driver: local
+  db:
+    driver: local
