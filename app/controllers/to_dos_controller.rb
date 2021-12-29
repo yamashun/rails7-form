@@ -4,6 +4,7 @@ class ToDosController < ApplicationController
   # GET /to_dos or /to_dos.json
   def index
     @to_dos = ToDo.all
+    @to_do = ToDo.new
   end
 
   # GET /to_dos/1 or /to_dos/1.json
