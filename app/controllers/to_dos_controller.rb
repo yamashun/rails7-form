@@ -26,7 +26,7 @@ class ToDosController < ApplicationController
 
     respond_to do |format|
       if @to_do.save
-        format.html { redirect_to to_do_url(@to_do), notice: "To do was successfully created." }
+        format.html { redirect_to to_dos_url, notice: "To do was successfully created." }
         format.json { render :show, status: :created, location: @to_do }
       else
         format.html { render :new, status: :unprocessable_entity }
