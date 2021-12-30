@@ -26,8 +26,10 @@ class ToDosController < ApplicationController
 
     respond_to do |format|
       if @to_do.save
-        format.html { redirect_to to_dos_url, notice: "To do was successfully created.", status: :see_other }
-        format.json { render :show, status: :created, location: @to_do }
+        # format.html { redirect_to to_dos_url, notice: "To do was successfully created.", status: :see_other }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append(:todo_index, partial: "to_dos/to_to", locals: { to_do: @to_do })
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @to_do.errors, status: :unprocessable_entity }
